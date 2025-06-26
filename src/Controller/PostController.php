@@ -88,6 +88,8 @@ class PostController extends AbstractController
             return $this->json(['message' => 'Post not found'], 404);
         }
 
+        $this->denyAccessUnlessGranted('POST_EDIT', $post);
+
         $this->postService->updatePost($post, $data);
 
         return $this->json(['message' => 'Post updated successfully']);
@@ -101,6 +103,8 @@ class PostController extends AbstractController
         if (!$post) {
             return $this->json(['message' => 'Post not found'], 404);
         }
+
+        $this->denyAccessUnlessGranted('POST_DELETE', $post);
 
         $this->postService->deletePost($post);
 

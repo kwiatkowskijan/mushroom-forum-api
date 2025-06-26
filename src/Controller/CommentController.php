@@ -85,6 +85,8 @@ class CommentController extends AbstractController
             return $this->json(['message' => 'Comment not found'], 404);
         }
 
+        $this->denyAccessUnlessGranted('COMMENT_EDIT', $comment);
+
         $this->commentService->updateComment($comment, $data);
 
         return $this->json(['message' => 'Comment updated successfully']);
@@ -98,6 +100,8 @@ class CommentController extends AbstractController
         if (!$comment) {
             return $this->json(['message' => 'Comment not found'], 404);
         }
+
+        $this->denyAccessUnlessGranted('COMMENT_DELETE', $comment);
 
         $this->commentService->deleteComment($comment);
 
