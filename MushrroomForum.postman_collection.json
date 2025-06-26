@@ -1,0 +1,701 @@
+{
+	"info": {
+		"_postman_id": "ecc4b488-31e4-4d70-bcc3-5dc52720275e",
+		"name": "MushrroomForum",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28052377"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"dupa@test.com\",\n  \"password\": \"123456123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register new user",
+					"request": {
+						"auth": {
+							"type": "apikey"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"test@test.com\",\n  \"password\": \"test123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/register",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Add post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Nowy post\",\n  \"content\": \"To jest treść posta.\",\n  \"group_id\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/posts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5Njk3NjEsImV4cCI6MTc1MDk3MzM2MSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJ1c2VybmFtZSI6InVzZXIxQGV4YW1wbGUuY29tIn0.C_09fp7DtDbCzWbk9wu0aNGdsBL5mXamlrajsi8PlbGHM3V9ZM9FxiMjYltd_kIulLgyN8oGHhC-CBDo_-t5S-T74YQ2Da1wufr-6oWezaHHcSk-uSRh3XGFJOruhPaV289JLhxwzJEhN2zN7VZQCoXfNIu56wStOoX2DrMhAnrKogoTjfEmF523nTAm745HJxKqRJ11uv-bJZgQ_xLwBVUvYonEAtLE9gS-HLAXhG7qVYUxdOf6GHeU2pJrB-y9hzkqziUBfGBVOczAng2svCSjjFs1_BvjWJvIW5flkn924152X0AtGhwHSNf8b1pvqx6_k6agDCNJGt0aFPmkP-8cE8tspztxV1oL96xLzIVyZnlQ057KbqaEXfOmJeBoShm4VP9QYzsKt9rsIK2e3iWHshOAT6iqhSXPjOs2RIBaGKbsmwVWS6DKHJF09GXrETeIZUdQ-vUf-LXPD0PRSa8f5Wyeb3XLwwwjMG10uBR2q5YwM6VoMQRGQaEnHMuM-AB1LyqtqCsciAQmJTans26uQxNXQjePEjcdIuqBZ4V7KasEU2LJpsi2LtduP3Ft8BdHnfzwYoOV_VwTxAM1WfK8wNWMWtlDXUtWp0O0PWYmG8iPLvcnAuK4e9KIWnUZm_V6oIRJ_CO_f2iPHFRcmwfbmUSh8zjegj3inEO9nPM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/posts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/posts/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"posts",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Edytowany post\",\n  \"content\": \"To jest edytowana treść posta.\",\n  \"group_id\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/posts/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"posts",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/posts/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"posts",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Add group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nowa grupa\",\n  \"description\": \"Opis nowej grupy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/groups",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get groups",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/groups",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/groups/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"groups",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Nowa edytowana grupa\",\n  \"description\": \"Edytowany opis nowej grupy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/groups/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"groups",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTQ0OTMsImV4cCI6MTc1MDk1ODA5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.0RAmuxMzE_-aVDo_TIe4np-e-m94NrF919htMcQuY5-mMsJqAbFcGq-QpZLKi0JRKqjY9Un94MyE9Loy55gfr7ARSYdAwAz-I3bt6TkWybUohqoRwGgpmRJ1gv11vPbZGcAEdl-By0d7BtsLKN7gUh6yvG-jvDPKP3Zw4ApNBwCR2zzhbcLdgiKTh7SdMAVIK9IQNfcGATKefg6ZZAhEkbG6YyGvowKh_fHJOUsavgq4-JtCzrI8yQS-2IGHA13qqd7fXLMGj_qaQg0LP4NLveqetruDUxSLS9UmZ4rLr6fTh8WDiBNxFNkzq8blJELZox9TDs3rABriix7jJi3aww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/groups/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"groups",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Add comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTcwODgsImV4cCI6MTc1MDk2MDY4OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.MsJkbL-7Hr_gqajYjm1ao18fSxBtvWdO0sGIETFOTl-pQEhtV4jHDqv1ezieZj3aLFMAlGvO8fwn6N8xGuufcjdVyG3DcGjkYh_fMALTkj4VN_X1w7U3acrHbN-AapSwoZSy28zq1ix9itD4OjBzce0whCDw1qs5Zg_pa0iHFHItl4w-M-UCMxZAeeXDRZuqE95MDuBEAtAO41P9IzqSXFvxhvw3cgevjIFj4zcqN4xsnc1LECQ1or25OqmC_4S2cnS7EqBxLnu9XOmqRz-pbHCw87N01WvQiRmPQm7faKfXWUceescWRF3SPjcILHVEeOwtuf4xl4fAfS_E0oL9rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"To jest treść komentarza.\",\n  \"post_id\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/comments",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTcwODgsImV4cCI6MTc1MDk2MDY4OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.MsJkbL-7Hr_gqajYjm1ao18fSxBtvWdO0sGIETFOTl-pQEhtV4jHDqv1ezieZj3aLFMAlGvO8fwn6N8xGuufcjdVyG3DcGjkYh_fMALTkj4VN_X1w7U3acrHbN-AapSwoZSy28zq1ix9itD4OjBzce0whCDw1qs5Zg_pa0iHFHItl4w-M-UCMxZAeeXDRZuqE95MDuBEAtAO41P9IzqSXFvxhvw3cgevjIFj4zcqN4xsnc1LECQ1or25OqmC_4S2cnS7EqBxLnu9XOmqRz-pbHCw87N01WvQiRmPQm7faKfXWUceescWRF3SPjcILHVEeOwtuf4xl4fAfS_E0oL9rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/comments",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTcwODgsImV4cCI6MTc1MDk2MDY4OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.MsJkbL-7Hr_gqajYjm1ao18fSxBtvWdO0sGIETFOTl-pQEhtV4jHDqv1ezieZj3aLFMAlGvO8fwn6N8xGuufcjdVyG3DcGjkYh_fMALTkj4VN_X1w7U3acrHbN-AapSwoZSy28zq1ix9itD4OjBzce0whCDw1qs5Zg_pa0iHFHItl4w-M-UCMxZAeeXDRZuqE95MDuBEAtAO41P9IzqSXFvxhvw3cgevjIFj4zcqN4xsnc1LECQ1or25OqmC_4S2cnS7EqBxLnu9XOmqRz-pbHCw87N01WvQiRmPQm7faKfXWUceescWRF3SPjcILHVEeOwtuf4xl4fAfS_E0oL9rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/comments/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"comments",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTcwODgsImV4cCI6MTc1MDk2MDY4OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.MsJkbL-7Hr_gqajYjm1ao18fSxBtvWdO0sGIETFOTl-pQEhtV4jHDqv1ezieZj3aLFMAlGvO8fwn6N8xGuufcjdVyG3DcGjkYh_fMALTkj4VN_X1w7U3acrHbN-AapSwoZSy28zq1ix9itD4OjBzce0whCDw1qs5Zg_pa0iHFHItl4w-M-UCMxZAeeXDRZuqE95MDuBEAtAO41P9IzqSXFvxhvw3cgevjIFj4zcqN4xsnc1LECQ1or25OqmC_4S2cnS7EqBxLnu9XOmqRz-pbHCw87N01WvQiRmPQm7faKfXWUceescWRF3SPjcILHVEeOwtuf4xl4fAfS_E0oL9rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"To jest edytowana treść komentarza.\",\n  \"post_id\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/comments/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"comments",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTcwODgsImV4cCI6MTc1MDk2MDY4OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.MsJkbL-7Hr_gqajYjm1ao18fSxBtvWdO0sGIETFOTl-pQEhtV4jHDqv1ezieZj3aLFMAlGvO8fwn6N8xGuufcjdVyG3DcGjkYh_fMALTkj4VN_X1w7U3acrHbN-AapSwoZSy28zq1ix9itD4OjBzce0whCDw1qs5Zg_pa0iHFHItl4w-M-UCMxZAeeXDRZuqE95MDuBEAtAO41P9IzqSXFvxhvw3cgevjIFj4zcqN4xsnc1LECQ1or25OqmC_4S2cnS7EqBxLnu9XOmqRz-pbHCw87N01WvQiRmPQm7faKfXWUceescWRF3SPjcILHVEeOwtuf4xl4fAfS_E0oL9rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/comments/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"comments",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserMetadata",
+			"item": [
+				{
+					"name": "Add UserMetadata",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NTcwODgsImV4cCI6MTc1MDk2MDY4OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.MsJkbL-7Hr_gqajYjm1ao18fSxBtvWdO0sGIETFOTl-pQEhtV4jHDqv1ezieZj3aLFMAlGvO8fwn6N8xGuufcjdVyG3DcGjkYh_fMALTkj4VN_X1w7U3acrHbN-AapSwoZSy28zq1ix9itD4OjBzce0whCDw1qs5Zg_pa0iHFHItl4w-M-UCMxZAeeXDRZuqE95MDuBEAtAO41P9IzqSXFvxhvw3cgevjIFj4zcqN4xsnc1LECQ1or25OqmC_4S2cnS7EqBxLnu9XOmqRz-pbHCw87N01WvQiRmPQm7faKfXWUceescWRF3SPjcILHVEeOwtuf4xl4fAfS_E0oL9rw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"key\": \"theme\",\n  \"value\": \"dark\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:443/api/users/5/metadata",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"users",
+								"5",
+								"metadata"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get current user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NTA5NjY2NjYsImV4cCI6MTc1MDk3MDI2Niwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiZHVwYUB0ZXN0LmNvbSJ9.gI0f6IdZ6kRHBnBbgxLunKb3bK4Fg3K818EhYfhdGheorYerYC8GUYmtjho6jotTB7MaNzMKw4jjbgN248-75hFz64Z-lSC_py1CjFbsr5ECCpmFolny-qdvW3VJ1WxkajGhVp5GJVMMNoH2zWw3n0TwutlOTxd8n9x0iK15DoCljqf8Q3GTGyRdSGPDTIWiNGWN99hpibuDE40ebLk4TUmqcIrasbVXpI34Ep8od98IF3PL6-1TYiasqjTExUJOIsWgmtLJ_RM-HV57MmVfj7Cr7b8pX-j1P9AqDIfSajue003FGA9gELg15lxiNLl6bYh8DJmGjK62IzWKxzGJyQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:443/api/users/current",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "443",
+							"path": [
+								"api",
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
