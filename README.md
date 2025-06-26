@@ -27,11 +27,14 @@ A simple RESTful forum API built with Symfony 6. Features include:
 git clone https://github.com/kwiatkowskijan/mushroom-forum-api
 cd mushroom-forum-api
 
-# 2. Install dependencies
-composer install
+# 2. Runn containers
+docker compose up -d --build
 
-# 3. Copy environment config
-cp .env .env.local
+# 3. Get into container
+docker exec -it mushroom-fdorum-api-php-1 bash
+
+# 4. Install dependencies
+composer install
 ```
 
 ---
@@ -56,27 +59,14 @@ JWT_PASSPHRASE=your_passphrase_here
 
 ---
 
-## 🧪 Database Setup
+## 🧪 Load fixtures
 
 ```bash
-php bin/console doctrine:database:create
-php bin/console doctrine:migrations:migrate
-
-# Optional: load fixtures (if any)
 php bin/console doctrine:fixtures:load
 ```
 
 ---
 
-## ▶️ Running the App
-
-**Using Docker**:
-
-```bash
-docker compose up -d --build
-```
-
----
 
 ## 🔐 Authentication Endpoints
 
