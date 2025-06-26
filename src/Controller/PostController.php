@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Service\PostService;
+use App\Service\ApiResponseFormatter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +15,16 @@ class PostController extends AbstractController
 {
     private PostService $postService;
     private EntityManagerInterface $entityManager;
+    private ApiResponseFormatter $apiFormatter;
 
-    public function __construct(PostService $postService, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        PostService $postService,
+        EntityManagerInterface $entityManager,
+        ApiResponseFormatter $apiFormatter
+    ) {
         $this->postService = $postService;
         $this->entityManager = $entityManager;
+        $this->apiFormatter = $apiFormatter;
     }
 
     #[Route('/api/posts', name: 'get_posts', methods: ['GET'])]
@@ -38,7 +44,7 @@ class PostController extends AbstractController
             ];
         }
 
-        return $this->json($data);
+        return $this->apiFormatter->success($data);
     }
 
     #[Route('/api/posts/{id}', name: 'get_post', methods: ['GET'])]
@@ -47,10 +53,10 @@ class PostController extends AbstractController
         $post = $this->postService->getPostById($id);
 
         if (!$post) {
-            return $this->json(['message' => 'Post not found'], 404);
+            return $this->apiFormatter->error('Post not found', 404);
         }
 
-        return $this->json([
+        return $this->apiFormatter->success([
             'id' => $post->getId(),
             'title' => $post->getTitle(),
             'content' => $post->getContent(),
@@ -67,12 +73,12 @@ class PostController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            return $this->json(['message' => 'User not authenticated'], 401);
+            return $this->apiFormatter->error('User not authenticated', 401);
         }
 
         $post = $this->postService->createPost($data, $user);
 
-        return $this->json([
+        return $this->apiFormatter->success([
             'id' => $post->getId(),
             'message' => 'Post created successfully'
         ], 201);
@@ -85,14 +91,14 @@ class PostController extends AbstractController
         $post = $this->postService->getPostById($id);
 
         if (!$post) {
-            return $this->json(['message' => 'Post not found'], 404);
+            return $this->apiFormatter->error('Post not found', 404);
         }
 
         $this->denyAccessUnlessGranted('POST_EDIT', $post);
 
         $this->postService->updatePost($post, $data);
 
-        return $this->json(['message' => 'Post updated successfully']);
+        return $this->apiFormatter->success(['message' => 'Post updated successfully']);
     }
 
     #[Route('/api/posts/{id}', name: 'delete_post', methods: ['DELETE'])]
@@ -101,13 +107,13 @@ class PostController extends AbstractController
         $post = $this->postService->getPostById($id);
 
         if (!$post) {
-            return $this->json(['message' => 'Post not found'], 404);
+            return $this->apiFormatter->error('Post not found', 404);
         }
 
         $this->denyAccessUnlessGranted('POST_DELETE', $post);
 
         $this->postService->deletePost($post);
 
-        return $this->json(['message' => 'Post deleted successfully']);
+        return $this->apiFormatter->success(['message' => 'Post deleted successfully']);
     }
 }
