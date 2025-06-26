@@ -16,28 +16,23 @@ class UserMetadataRepository extends ServiceEntityRepository
         parent::__construct($registry, UserMetadata::class);
     }
 
-    //    /**
-    //     * @return UserMetadata[] Returns an array of UserMetadata objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findAllForUser(int $userId): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?UserMetadata
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneForUser(int $userId, int $metadataId): ?UserMetadata
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.user = :userId')
+            ->andWhere('m.id = :metadataId')
+            ->setParameter('userId', $userId)
+            ->setParameter('metadataId', $metadataId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
