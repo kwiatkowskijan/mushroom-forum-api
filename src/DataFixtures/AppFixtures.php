@@ -15,15 +15,13 @@ class AppFixtures extends Fixture
     {
         // Create sample users
         $user1 = new User();
-        $user1->setUsername('user1')
-              ->setEmail('user1@example.com')
+        $user1->setEmail('user1@example.com')
               ->setPassword('password1')
               ->setRoles(['ROLE_USER']);
         $manager->persist($user1);
 
         $user2 = new User();
-        $user2->setUsername('user2')
-              ->setEmail('user2@example.com')
+        $user2->setEmail('user2@example.com')
               ->setPassword('password2')
               ->setRoles(['ROLE_USER']);
         $manager->persist($user2);
