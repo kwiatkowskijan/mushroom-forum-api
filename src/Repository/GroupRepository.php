@@ -16,28 +16,26 @@ class GroupRepository extends ServiceEntityRepository
         parent::__construct($registry, Group::class);
     }
 
-    //    /**
-    //     * @return Group[] Returns an array of Group objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Pobierz grupę po ID z QueryBuilderem.
+     */
+    public function findGroupById(int $id): ?Group
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Group
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    /**
+     * Pobierz wszystkie grupy.
+     */
+    public function findAllGroups(): array
+    {
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
