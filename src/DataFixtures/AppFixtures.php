@@ -8,21 +8,29 @@ use App\Entity\Comment;
 use App\Entity\Group;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // Create sample users
         $user1 = new User();
         $user1->setEmail('user1@example.com')
-              ->setPassword('password1')
+              ->setPassword($this->passwordHasher->hashPassword($user1, 'password1'))
               ->setRoles(['ROLE_USER']);
         $manager->persist($user1);
 
         $user2 = new User();
         $user2->setEmail('user2@example.com')
-              ->setPassword('password2')
+              ->setPassword($this->passwordHasher->hashPassword($user2, 'password2'))
               ->setRoles(['ROLE_USER']);
         $manager->persist($user2);
 
