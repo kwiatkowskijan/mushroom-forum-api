@@ -1,51 +1,177 @@
-# Symfony Docker
+# 🗨️ Forum API – Symfony 6 + JWT Authentication
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+A simple RESTful forum API built with Symfony 6. Features include:
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+- User registration and login
+- JWT-based authentication
+- Role-based access control (User/Admin)
+- Post, Comment, and Group management
+- Voters and `@IsGranted` for resource protection
+- Unified JSON responses via `ApiResponseFormatter`
 
-## Getting Started
+---
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+## 📋 Requirements
 
-## Features
+- PHP >= 8.1  
+- Composer  
+- Symfony CLI (optional)  
+- Docker (optional but recommended)  
 
-* Production, development and CI ready
-* Just 1 service by default
-* Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://github.com/dunglas/frankenphp/blob/main/docs/worker.md) (automatically enabled in prod mode)
-* [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-* Automatic HTTPS (in dev and prod)
-* HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-* Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-* [Vulcain](https://vulcain.rocks) support
-* Native [XDebug](docs/xdebug.md) integration
-* Super-readable configuration
+---
 
-**Enjoy!**
+## ⚙️ Installation
 
-## Docs
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-user/forum-api.git
+cd forum-api
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
+# 2. Install dependencies
+composer install
 
-## License
+# 3. Copy environment config
+cp .env .env.local
+```
 
-Symfony Docker is available under the MIT License.
+---
 
-## Credits
+## 🔐 JWT Key Generation
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+If not generated yet:
+
+```bash
+mkdir -p config/jwt
+openssl genrsa -out config/jwt/private.pem -aes256 4096
+openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+```
+
+Then add to `.env.local`:
+
+```env
+JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
+JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
+JWT_PASSPHRASE=your_passphrase_here
+```
+
+---
+
+## 🧪 Database Setup
+
+```bash
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+
+# Optional: load fixtures (if any)
+php bin/console doctrine:fixtures:load
+```
+
+---
+
+## ▶️ Running the App
+
+**Using Symfony CLI**:
+
+```bash
+symfony serve
+```
+
+**Or using Docker**:
+
+```bash
+docker compose up --build
+```
+
+---
+
+## 🔐 Authentication Endpoints
+
+- `POST /api/register` – Register new users  
+- `POST /api/login` – Log in and receive a JWT token
+
+Use the token in all protected requests via the `Authorization` header:
+
+```http
+Authorization: Bearer <your_token_here>
+```
+
+---
+
+## 📚 API Endpoints Overview
+
+| Endpoint              | Method | Access         | Description              |
+|-----------------------|--------|----------------|--------------------------|
+| `/api/posts`          | GET    | Public         | List all posts           |
+| `/api/posts`          | POST   | Authenticated  | Create a post            |
+| `/api/posts/{id}`     | PUT    | Post Author    | Edit a post              |
+| `/api/posts/{id}`     | DELETE | Post Author    | Delete a post            |
+| `/api/comments`       | POST   | Authenticated  | Add a comment            |
+| `/api/comments/{id}`  | DELETE | Comment Author | Delete a comment         |
+| `/api/groups`         | GET    | Public         | List all groups          |
+| `/api/groups`         | POST   | Admin Only     | Create a group           |
+| `/api/groups/{id}`    | DELETE | Admin Only     | Delete a group           |
+
+---
+
+## 🔒 Roles & Permissions
+
+- `ROLE_USER` – Default user role  
+- `ROLE_ADMIN` – Full access (e.g. delete groups)  
+
+### Voters are used to protect resources:
+
+- Only post authors can edit or delete their own posts  
+- Only comment authors can delete their comments  
+- Only admins can delete groups  
+
+Symfony’s `#[IsGranted()]` attribute is used for method-level access control.
+
+---
+
+## 🧪 Testing with Postman
+
+1. Log in at `/api/login` to get a JWT token  
+2. Use the token in your request headers:
+
+```http
+Authorization: Bearer <your_token>
+```
+
+3. Access protected routes and test permissions (e.g., try editing or deleting another user's post)
+
+---
+
+## 📦 API Response Format
+
+All API responses follow this standard structure using `ApiResponseFormatter`:
+
+**Success response:**
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "errors": null
+}
+```
+
+**Error response:**
+
+```json
+{
+  "success": false,
+  "data": null,
+  "errors": [ "Something went wrong." ]
+}
+```
+
+---
+
+## 🛠 Tech Stack
+
+- Symfony 6  
+- Doctrine ORM  
+- LexikJWTAuthenticationBundle  
+- Symfony Security (Voters, Roles)  
+- Docker (optional)  
+- Postman (for API testing)  

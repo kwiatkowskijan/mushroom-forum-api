@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\GroupService;
+use App\Service\ApiResponseFormatter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,11 +14,16 @@ class GroupController extends AbstractController
 {
     private GroupService $groupService;
     private EntityManagerInterface $entityManager;
+    private ApiResponseFormatter $apiFormatter;
 
-    public function __construct(GroupService $groupService, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        GroupService $groupService,
+        EntityManagerInterface $entityManager,
+        ApiResponseFormatter $apiFormatter
+    ) {
         $this->groupService = $groupService;
         $this->entityManager = $entityManager;
+        $this->apiFormatter = $apiFormatter;
     }
 
     #[Route('/api/groups', name: 'get_groups', methods: ['GET'])]
@@ -34,7 +40,7 @@ class GroupController extends AbstractController
             ];
         }
 
-        return $this->json($data);
+        return $this->apiFormatter->success($data);
     }
 
     #[Route('/api/groups/{id}', name: 'get_group', methods: ['GET'])]
@@ -43,10 +49,10 @@ class GroupController extends AbstractController
         $group = $this->groupService->getGroupById($id);
 
         if (!$group) {
-            return $this->json(['message' => 'Group not found'], 404);
+            return $this->apiFormatter->error('Group not found', 404);
         }
 
-        return $this->json([
+        return $this->apiFormatter->success([
             'id' => $group->getId(),
             'name' => $group->getName(),
             'description' => $group->getDescription(),
@@ -60,7 +66,7 @@ class GroupController extends AbstractController
 
         $group = $this->groupService->createGroup($data);
 
-        return $this->json([
+        return $this->apiFormatter->success([
             'id' => $group->getId(),
             'message' => 'Group created successfully'
         ], 201);
@@ -73,14 +79,14 @@ class GroupController extends AbstractController
         $group = $this->groupService->getGroupById($id);
 
         if (!$group) {
-            return $this->json(['message' => 'Group not found'], 404);
+            return $this->apiFormatter->error('Group not found', 404);
         }
 
         $this->denyAccessUnlessGranted('GROUP_EDIT', $group);
 
         $this->groupService->updateGroup($group, $data);
 
-        return $this->json(['message' => 'Group updated successfully']);
+        return $this->apiFormatter->success(['message' => 'Group updated successfully']);
     }
 
     #[Route('/api/groups/{id}', name: 'delete_group', methods: ['DELETE'])]
@@ -89,13 +95,13 @@ class GroupController extends AbstractController
         $group = $this->groupService->getGroupById($id);
 
         if (!$group) {
-            return $this->json(['message' => 'Group not found'], 404);
+            return $this->apiFormatter->error('Group not found', 404);
         }
 
         $this->denyAccessUnlessGranted('GROUP_DELETE', $group);
 
         $this->groupService->deleteGroup($group);
 
-        return $this->json(['message' => 'Group deleted successfully']);
+        return $this->apiFormatter->success(['message' => 'Group deleted successfully']);
     }
 }
