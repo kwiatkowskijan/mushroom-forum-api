@@ -70,16 +70,10 @@ php bin/console doctrine:fixtures:load
 
 ## ▶️ Running the App
 
-**Using Symfony CLI**:
+**Using Docker**:
 
 ```bash
-symfony serve
-```
-
-**Or using Docker**:
-
-```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
 ---
