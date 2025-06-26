@@ -24,8 +24,8 @@ A simple RESTful forum API built with Symfony 6. Features include:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-user/forum-api.git
-cd forum-api
+git clone https://github.com/kwiatkowskijan/mushroom-forum-api
+cd mushroom-forum-api
 
 # 2. Install dependencies
 composer install
