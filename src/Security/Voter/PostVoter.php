@@ -26,7 +26,7 @@ class PostVoter extends Voter
             return false;
         }
 
-        return $post->getAuthor() === $user;
+        return $post->getUser() === $user;
     }
 }
 

@@ -76,6 +76,8 @@ class GroupController extends AbstractController
             return $this->json(['message' => 'Group not found'], 404);
         }
 
+        $this->denyAccessUnlessGranted('GROUP_EDIT', $group);
+
         $this->groupService->updateGroup($group, $data);
 
         return $this->json(['message' => 'Group updated successfully']);
@@ -89,6 +91,8 @@ class GroupController extends AbstractController
         if (!$group) {
             return $this->json(['message' => 'Group not found'], 404);
         }
+
+        $this->denyAccessUnlessGranted('GROUP_DELETE', $group);
 
         $this->groupService->deleteGroup($group);
 
